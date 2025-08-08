@@ -1,6 +1,19 @@
+if (MSVC)
+  add_compile_options(/wd4996)
+  add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+endif()
+
+add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+
 # Project-level configuration.
 cmake_minimum_required(VERSION 3.14)
 project(project_d LANGUAGES CXX)
+
+# Suppress MSVC deprecation warnings (C4996) in Firebase SDK
+if (MSVC)
+  add_compile_options(/wd4996)
+  add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+endif()
 
 # The name of the executable created for the application. Change this to change
 # the on-disk name of your application.
@@ -106,3 +119,6 @@ install(DIRECTORY "${PROJECT_BUILD_DIR}/${FLUTTER_ASSET_DIR_NAME}"
 install(FILES "${AOT_LIBRARY}" DESTINATION "${INSTALL_BUNDLE_DATA_DIR}"
   CONFIGURATIONS Profile;Release
   COMPONENT Runtime)
+
+add_compile_options(/wd4996)
+add_compile_options(/D_CRT_SECURE_NO_WARNINGS)
