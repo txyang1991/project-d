@@ -64,6 +64,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '907834599183',
     projectId: 'project-d-start-of-everything',
     storageBucket: 'project-d-start-of-everything.firebasestorage.app',
+    iosClientId: '907834599183-5lhe2619o2g9u76citdvjd2abinic9og.apps.googleusercontent.com',
     iosBundleId: 'com.example.projectd',
   );
 
@@ -73,6 +74,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '907834599183',
     projectId: 'project-d-start-of-everything',
     storageBucket: 'project-d-start-of-everything.firebasestorage.app',
+    iosClientId: '907834599183-5lhe2619o2g9u76citdvjd2abinic9og.apps.googleusercontent.com',
     iosBundleId: 'com.example.projectd',
   );
 
@@ -85,4 +87,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'project-d-start-of-everything.firebasestorage.app',
     measurementId: 'G-9J6QFCXV4Y',
   );
+
 }
