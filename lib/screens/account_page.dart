@@ -70,6 +70,19 @@ class _AccountPageState extends State<AccountPage> {
     );
   }
 
+  Widget _orDivider() {
+    return Row(
+      children: [
+        Expanded(child: Divider(color: Theme.of(context).dividerColor)),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8.0),
+          child: Text('OR'),
+        ),
+        Expanded(child: Divider(color: Theme.of(context).dividerColor)),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -94,7 +107,7 @@ class _AccountPageState extends State<AccountPage> {
               ),
               const SizedBox(height: 16),
 
-              // --- Not signed in: show Email/Password + Guest ---
+              // --- Not signed in: show Email/Password + Google + Guest ---
               if (user == null) ...[
                 _emailPasswordFields(),
                 const SizedBox(height: 12),
@@ -152,6 +165,19 @@ class _AccountPageState extends State<AccountPage> {
                     child: const Text('Forgot password?'),
                   ),
                 ),
+                const SizedBox(height: 16),
+                _orDivider(),
+                const SizedBox(height: 16),
+                CustomButton(
+                  text: 'Continue with Google',
+                  onPressed: () {
+                    if (_busy) return;
+                    _wrap(() async {
+                      await AuthService.signInWithGoogle();
+                      _toast('Signed in with Google');
+                    });
+                  },
+                ),
                 const SizedBox(height: 8),
                 CustomButton(
                   text: 'Continue as Guest',
@@ -188,6 +214,17 @@ class _AccountPageState extends State<AccountPage> {
                     });
                   },
                 ),
+                const SizedBox(height: 8),
+                CustomButton(
+                  text: 'Link Google',
+                  onPressed: () {
+                    if (_busy) return;
+                    _wrap(() async {
+                      await AuthService.linkAnonymousWithGoogle();
+                      _toast('Guest account linked to Google');
+                    });
+                  },
+                ),
                 const SizedBox(height: 16),
                 CustomButton(
                   text: 'Sign Out',
@@ -201,7 +238,7 @@ class _AccountPageState extends State<AccountPage> {
                 ),
               ],
 
-              // --- Signed in (email): only Sign Out ---
+              // --- Signed in (email/google/etc): only Sign Out ---
               if (isSignedIn) ...[
                 const SizedBox(height: 24),
                 CustomButton(
