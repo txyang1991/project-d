@@ -29,7 +29,7 @@ class _MainPageState extends State<MainPage> {
       await ChatRepository.addUserMessage(_controller.text);
       _controller.clear();
     } catch (e) {
-      _toast('Please sign in: $e');
+      _toast('$e');
     }
   }
 
