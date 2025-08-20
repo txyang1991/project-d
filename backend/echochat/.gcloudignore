@@ -1,0 +1,8 @@
+# Keep builds tiny and scoped to this folder
+# (Cloud Build respects .gcloudignore similar to .gitignore)
+.*
+!.gcloudignore
+!.gitignore
+# Nothing outside this folder should be uploaded, but keep these for safety:
+../*
+../../*

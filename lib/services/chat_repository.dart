@@ -9,7 +9,8 @@ class ChatRepository {
   static final _auth = FirebaseAuth.instance;
 
   // TODO: replace with your deployed function URL
-  static const String _fnUrl = 'https://us-central1-project-d-start-of-everything.cloudfunctions.net/echoChat'; // e.g. https://us-central1-.../echoChat
+  // static const String _fnUrl = 'https://us-central1-project-d-start-of-everything.cloudfunctions.net/echoChat'; // for firebase function
+  static const String _fnUrl = 'https://echochat-cr-907834599183.us-central1.run.app/echoChat'; // e.g. https://us-central1-.../echoChat
 
   static String _requireUid() {
     final uid = _auth.currentUser?.uid;
@@ -17,7 +18,7 @@ class ChatRepository {
     return uid;
   }
 
-  // Path: /users/{uid}/messages/{messageId}
+  // Path: /users/{uid}/messages/{messageId} 
   static CollectionReference<Map<String, dynamic>> _messagesCol() {
     final uid = _requireUid();
     return _db.collection('users').doc(uid).collection('messages');
