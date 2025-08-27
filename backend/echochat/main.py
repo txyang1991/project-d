@@ -5,6 +5,7 @@ from pydantic import BaseModel
 import firebase_admin
 from firebase_admin import auth as fb_auth, firestore
 from google.cloud.firestore_v1 import SERVER_TIMESTAMP
+from aws_sagemaker_client import generate_text
 
 app = FastAPI()
 
@@ -50,7 +51,21 @@ def echo_chat(request: Request, body: ChatIn):
         "source": "client",
     })
 
-    reply = f"Echo: {text}"
+    # Call AWS SageMaker endpoint. Adjust parameters as you like.
+    try:
+        reply = generate_text(
+            text,
+            parameters={
+                "max_new_tokens": 128,
+                "temperature": 0.2,
+                "do_sample": False
+            },
+        )
+    except Exception as e:
+        # Surface a clean 502 to the client; still log the error for debugging.
+        # (In production you may prefer structured logging.)
+        raise HTTPException(status_code=502, detail=f"AWS inference error: {e}")
+
 
     _, reply_ref = messages.add({
         "role": "assistant",
